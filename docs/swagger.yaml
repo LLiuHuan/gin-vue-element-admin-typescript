@@ -1,0 +1,50 @@
+basePath: /
+host: 54cc.cc
+info:
+  contact:
+    email: liuhuan@54cc.cc
+    name: 刘欢
+    url: 54cc.cc
+  description: 描述信息
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: 0.0.1
+paths:
+  /api/v1/user/signup:
+    post:
+      consumes:
+      - application/json
+      description: 根据参数，注册用户
+      parameters:
+      - description: Bearer 用户令牌
+        in: header
+        name: Authorization
+        type: string
+      - in: query
+        name: password
+        required: true
+        type: string
+      - in: query
+        name: re_password
+        required: true
+        type: string
+      - in: query
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"注册成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用户注册接口
+      tags:
+      - User
+swagger: "2.0"

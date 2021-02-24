@@ -1,0 +1,33 @@
+name: "gin-vue-element-admin-typescript"
+mode: "dev"
+port: 8081
+version: "v0.0.8"
+start_time: "2020-01-01"
+machine_id: 1
+
+auth:
+  jwt_expire: 24
+log:
+  level: "debug"
+  filename: "./logs/logging.log"
+  max_size: 200
+  max_age: 30
+  max_backups: 7
+  prefix: ""
+mysql:
+  host: "127.0.0.1"
+  port: 3306
+  user: "root"
+  password: "LLiuHuan980724."
+  dbname: "db1"
+  max_open_conns: 200
+  max_idle_conns: 50
+redis:
+  host: "127.0.0.1"
+  port: 6379
+  password: ""
+  db: 0
+  pool_size: 200
+user:
+  issuer: "lliuhuan"
+  secret: "唯一密钥"
