@@ -32,6 +32,8 @@ type MySqlConfig struct {
 	DBName       string `mapstructure:"dbname"`
 	MaxOpenConns int    `mapstructure:"max_open_conns"`
 	MaxIdleConns int    `mapstructure:"max_idle_conns"`
+	Config       string `mapstructure:"config"`
+	LogMode	bool `mapstructure:"log_mode"`
 }
 
 type RedisConfig struct {

@@ -6,7 +6,7 @@ import (
 )
 
 func InitBaseRouter(r *gin.RouterGroup) {
-	UserRouter := r.Group("base")
+	UserRouter := r.Group("")
 	{
 		UserRouter.POST("signup", v1.SignUp)
 		UserRouter.POST("login", v1.Login)

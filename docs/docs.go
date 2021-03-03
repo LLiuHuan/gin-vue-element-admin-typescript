@@ -54,12 +54,6 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Bearer 用户令牌",
-                        "name": "Authorization",
-                        "in": "header"
-                    },
-                    {
-                        "type": "string",
                         "name": "password",
                         "in": "query",
                         "required": true

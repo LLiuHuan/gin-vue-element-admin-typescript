@@ -25,7 +25,7 @@ func Router(mode string) *gin.Engine {
 	// 跨域
 	r.Use(middlewares.Cors())
 
-	v1 := r.Group("/api/v1")
+	v1 := r.Group("/v1")
 	{
 		v1.GET("/", func(c *gin.Context) {
 			c.String(http.StatusOK, model.SettingsConf.Version)
@@ -45,6 +45,7 @@ func Router(mode string) *gin.Engine {
 	v1.Use(middlewares.JWTAuthMiddleware(), middlewares.RepeatLogin())
 	{
 		router.InitUserRouter(v1)
+		router.InitMenuRooter(v1)
 	}
 
 	r.NoRoute(func(c *gin.Context) {

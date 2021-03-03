@@ -5,6 +5,7 @@ import (
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-redis/redis/v8"
 	"github.com/jmoiron/sqlx"
+	"gorm.io/gorm"
 )
 
 var (
@@ -12,4 +13,5 @@ var (
 	RDB   *redis.Client
 	NODE  *sf.Node
 	Trans ut.Translator
+	GROM  *gorm.DB
 )

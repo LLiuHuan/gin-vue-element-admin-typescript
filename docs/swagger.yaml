@@ -19,10 +19,6 @@ paths:
       - application/json
       description: 根据参数，注册用户
       parameters:
-      - description: Bearer 用户令牌
-        in: header
-        name: Authorization
-        type: string
       - in: query
         name: password
         required: true

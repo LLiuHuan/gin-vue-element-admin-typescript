@@ -32,8 +32,8 @@ func GenToken(userID int64, isRToken bool) (aToken, rToken string, err error) {
 	c := MyClaims{
 		userID, // ⾃定义字段
 		jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Second * time.Duration(viper.GetInt("auth.jwt_expire"))).Unix(), // 过期时间
-			Issuer:    issuer,                                                                              // 签发⼈
+			ExpiresAt: time.Now().Add(time.Hour * time.Duration(viper.GetInt("auth.jwt_expire"))).Unix(), // 过期时间
+			Issuer:    issuer,                                                                            // 签发⼈
 		},
 	}
 	// 加密并获得完整的编码后的字符串token
@@ -110,5 +110,15 @@ func RefreshToken(aToken, rToken string, oUserID int64) (newAToken, newRToken st
 	} else {
 		err = code.ErrorInvalidToken
 	}
+	return
+}
+
+func GetTokenUserId(aToken string) (userId int64, err error) {
+	var secret = []byte(model.SettingsConf.UserConfig.Secret)
+	var claims MyClaims
+	_, err = jwt.ParseWithClaims(aToken, &claims, func(*jwt.Token) (interface{}, error) {
+		return secret, nil
+	})
+	userId = claims.UserID
 	return
 }

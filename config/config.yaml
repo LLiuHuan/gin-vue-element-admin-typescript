@@ -4,6 +4,7 @@ port: 8081
 version: "v0.0.8"
 start_time: "2020-01-01"
 machine_id: 1
+db_type: "mysql"
 
 auth:
   jwt_expire: 24
@@ -16,12 +17,14 @@ log:
   prefix: ""
 mysql:
   host: "127.0.0.1"
+  config: 'charset=utf8mb4&parseTime=True&loc=Local'
   port: 3306
   user: "root"
   password: "LLiuHuan980724."
   dbname: "db1"
   max_open_conns: 200
   max_idle_conns: 50
+  log_mode: false
 redis:
   host: "127.0.0.1"
   port: 6379

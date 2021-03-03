@@ -8,6 +8,9 @@ import (
 func InitUserRouter(r *gin.RouterGroup) {
 	UserRouter := r.Group("user")
 	{
+		// 重置token
 		UserRouter.POST("refreshToken", v1.RefreshToken)
+		// 用户基础信息
+		UserRouter.GET("userInfo", v1.UserInfo)
 	}
 }

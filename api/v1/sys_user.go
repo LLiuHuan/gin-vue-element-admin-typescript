@@ -22,7 +22,7 @@ import (
 )
 
 // SignUp 注册接口
-// @Summary 用户注册接口
+// @Summary 用户注册接口1asd
 // @Description 根据参数，注册用户
 // @Tags User
 // @Accept application/json
@@ -91,6 +91,7 @@ func Login(c *gin.Context) {
 	data := map[string]string{
 		"aToken": aToken,
 		"rToken": rToken,
+		"roles":  "admin",
 	}
 	response.OkWithDetailed(data, code.CodeLoginSuccess, c)
 }
@@ -115,4 +116,14 @@ func RefreshToken(c *gin.Context) {
 		"rToken": nRToken,
 	}
 	response.OkWithDetailed(data, code.CodeRefreshTokenOK, c)
+}
+
+func UserInfo(c *gin.Context) {
+	// 获取参数
+	aToken, ok := c.Get(model.CtxTokenKey)
+	if !ok {
+		response.FailWithMessage("获取Token失败", c)
+	}
+	userInfo := server.UserInfo(aToken.(string))
+	response.OkWithData(userInfo, c)
 }

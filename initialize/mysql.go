@@ -32,7 +32,7 @@ func MySql(cfg *model.MySqlConfig) (err error) {
 	return
 }
 
-// MySqlClose 关闭mysql连接
+// MySqlClose 关闭mysql连接  废弃 改为公共的
 func MySqlClose() {
 	fmt.Println("关闭mysql")
 	_ = g.MDB.Close()

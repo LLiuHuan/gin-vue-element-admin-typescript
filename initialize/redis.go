@@ -27,7 +27,7 @@ func Redis(cfg *model.RedisConfig) (err error) {
 	return err
 }
 
-// RedisClose 关闭Redis连接
+// RedisClose 关闭Redis连接 废弃 改为公共的
 func RedisClose() {
 	_ = g.RDB.Close()
 }

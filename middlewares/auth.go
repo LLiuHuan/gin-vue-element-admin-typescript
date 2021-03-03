@@ -22,20 +22,20 @@ func JWTAuthMiddleware() func(c *gin.Context) {
 		// 这⾥的具体实现⽅式要依据你的实际业务情况决定
 		authHeader := c.Request.Header.Get("Authorization")
 		if authHeader == "" {
-			response.FailWithMessage("请求头缺少Authorization", c)
+			response.FailWithCodeMessage(response.TokenERROR, "请求头缺少Authorization", c)
 			c.Abort()
 			return
 		}
 		// 按空格分割
 		parts := strings.SplitN(authHeader, " ", 2)
 		if !(len(parts) == 2 && parts[0] == "Bearer") {
-			response.FailWithMessage("请求头中auth格式有误", c)
+			response.FailWithCodeMessage(response.TokenERROR, "请求头中auth格式有误", c)
 			c.Abort()
 			return
 		}
 		mc, err := jwt.ParseToken(parts[1])
 		if err != nil {
-			response.FailWithMessage("无效的Token", c)
+			response.FailWithCodeMessage(response.TokenERROR, "无效的Token", c)
 			c.Abort()
 			return
 		}

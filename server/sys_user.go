@@ -58,3 +58,12 @@ func RefreshToken(aToken, rToken string, userID int64) (nAToken, nRToken string,
 	}
 	return
 }
+
+func UserInfo(aToken string) *model.TUser {
+	userId, err := jwt.GetTokenUserId(aToken)
+	if err != nil {
+		return nil
+	}
+	userInfo := mysql.UserInfo(userId)
+	return userInfo
+}

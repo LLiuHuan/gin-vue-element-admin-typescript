@@ -22,28 +22,52 @@ func init() {
 	fmt.Printf("配置的配置文件路径为：%s \v", *filePath)
 	// 1. 加载配置
 	if err := initialize.Settings(*filePath); err != nil {
-		fmt.Printf("init settings failed, err: %v\n", err)
+		fmt.Printf("init Settings failed, err: %v\n", err)
+		os.Exit(0)
+		return
 	}
 	// 2. 加载日志
 	if err := initialize.Logger(model.SettingsConf.LogConfig, model.SettingsConf.Mode); err != nil {
-		fmt.Printf("init logger failed, err: %v\n", err)
+		fmt.Printf("init Logger failed, err: %v\n", err)
+		zap.L().Error("init Logger failed, err", zap.Error(err))
+		os.Exit(0)
+		return
 	}
 	// 3. 初始化MySQL连接
+	// 初始化sqlx
 	if err := initialize.MySql(model.SettingsConf.MySqlConfig); err != nil {
-		fmt.Printf("init logger failed, err: %v\n", err)
+		fmt.Printf("init MySql failed, err: %v\n", err)
+		zap.L().Error("init MySql failed, err", zap.Error(err))
+		os.Exit(0)
+		return
+	}
+	// 初始化gorm
+	if err := initialize.GormMySql(model.SettingsConf.MySqlConfig); err != nil {
+		fmt.Printf("init GormMySql failed, err: %v\n", err)
+		zap.L().Error("init GormMySql failed, err", zap.Error(err))
+		os.Exit(0)
+		return
 	}
 	// 4. 初始化Redis连接
 	if err := initialize.Redis(model.SettingsConf.RedisConfig); err != nil {
-		fmt.Printf("init logger failed, err: %v\n", err)
-	}
-	// 初始化雪花算法
-	if err := initialize.Snowflake(model.SettingsConf.StartTime, model.SettingsConf.MachineID); err != nil {
-		fmt.Printf("init snowflake failed, err: %v\n", err)
+		fmt.Printf("init Redis failed, err: %v\n", err)
+		zap.L().Error("init Redis failed, err", zap.Error(err))
+		os.Exit(0)
 		return
 	}
-	// 初始化gin框架内置的校验器使用的翻译器
+	// 5. 初始化雪花算法
+	if err := initialize.Snowflake(model.SettingsConf.StartTime, model.SettingsConf.MachineID); err != nil {
+		fmt.Printf("init Snowflake failed, err: %v\n", err)
+		zap.L().Error("init Snowflake failed, err", zap.Error(err))
+		os.Exit(0)
+		return
+	}
+	// 6. 初始化gin框架内置的校验器使用的翻译器
 	if err := initialize.Trans("zh"); err != nil {
 		fmt.Printf("init validator failed, err: %v\n", err)
+		zap.L().Error("init validator failed, err", zap.Error(err))
+		os.Exit(0)
+		return
 	}
 }
 

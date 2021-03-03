@@ -15,6 +15,7 @@ type Response struct {
 const (
 	SUCCESS = iota
 	ERROR
+	TokenERROR
 )
 
 func Result(code int, data interface{}, msg interface{}, c *gin.Context) {
@@ -47,6 +48,10 @@ func Fail(c *gin.Context) {
 }
 
 func FailWithMessage(message interface{}, c *gin.Context) {
+	Result(ERROR, map[string]interface{}{}, message, c)
+}
+
+func FailWithCodeMessage(code int, message interface{}, c *gin.Context) {
 	Result(ERROR, map[string]interface{}{}, message, c)
 }
 

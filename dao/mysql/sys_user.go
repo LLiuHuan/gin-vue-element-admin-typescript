@@ -2,6 +2,7 @@ package mysql
 
 import (
 	"database/sql"
+	"fmt"
 
 	"54cc.cc/LLiuHuan/gin-vue-element-admin-typescript/model/code"
 
@@ -44,4 +45,11 @@ func CheckUserPwd(user *model.User) (err error) {
 
 	err = utils.CheckPassword(user.Password, oPassword)
 	return
+}
+
+func UserInfo(userId int64) *model.TUser {
+	userInfo := new(model.TUser)
+	g.GROM.Where("user_id = ?", userId).First(userInfo)
+	fmt.Println(userInfo)
+	return userInfo
 }
